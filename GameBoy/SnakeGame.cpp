@@ -47,6 +47,10 @@ SnakeGame::SnakeGame(sf::RenderWindow* sharedWindow, InputSystem* input)
 
 void SnakeGame::restartGame() {
     std::cout << "Restarting game..." << std::endl;
+    for (int i = currentLength; i < MAX_SNAKE_LENGTH; ++i) {
+        snake[i].setPosition(-cellSize, -cellSize);  // Move unused segments off-screen
+    }
+
     startGame();
 }
 
@@ -56,17 +60,23 @@ void SnakeGame::startGame() {
     isPaused = false;
     score = 0;
     currentLength = 3;  // Reset the snake length
+    direction = Direction::Right;  // Reset direction to the default
+    movementTimeAccumulator = 0.0f;  // Reset the movement timer
 
-    // Initialize snake
+    // Initialize snake segments to default positions (in the center)
     for (int i = 0; i < currentLength; ++i) {
         snake[i] = SnakeSegment((grid.getWidth() / 2 - i) * cellSize, (grid.getHeight() / 2) * cellSize);
     }
 
-    // Place food
+    // Reset the food
     food.setPosition((std::rand() % grid.getWidth()) * cellSize, (std::rand() % grid.getHeight()) * cellSize);
     foodSprite.setPosition(static_cast<float>(food.x), static_cast<float>(food.y));
 
+    // Reset the clock or any other time-related variables
+    clock1.restart();  // Restart the clock for the next round of movement
 }
+
+
 
 void SnakeGame::handleInput() {
     std::cout << "Handle Input";
