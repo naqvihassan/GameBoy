@@ -1,0 +1,5 @@
+﻿  main.cpp
+C:\Users\Track Computers\OneDrive\Desktop\Fiverr\Out Source\3Games_GameBoy_OOP\GameBoy\GameBoy\main.cpp(29,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Track Computers\OneDrive\Desktop\Fiverr\Out Source\3Games_GameBoy_OOP\GameBoy\GameBoy\main.cpp(41,29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Track Computers\OneDrive\Desktop\Fiverr\Out Source\3Games_GameBoy_OOP\GameBoy\GameBoy\main.cpp(41,26): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  GameBoy.vcxproj -> C:\Users\Track Computers\OneDrive\Desktop\Fiverr\Out Source\3Games_GameBoy_OOP\GameBoy\x64\Debug\GameBoy.exe
