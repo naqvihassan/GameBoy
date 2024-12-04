@@ -32,7 +32,7 @@ SnakeGame::SnakeGame(sf::RenderWindow* sharedWindow, InputSystem* input)
         static_cast<float>(cellSize) / foodTexture.getSize().y);
 
     // Load the background texture
-    if (!backgroundTexture.loadFromFile("background_snake.png")) {  // Replace with your image path
+    if (!backgroundTexture.loadFromFile("snake_background.png")) {  // Replace with your image path
         std::cerr << "Error loading background texture!" << std::endl;
     }
     backgroundSprite.setTexture(backgroundTexture);
@@ -79,13 +79,8 @@ void SnakeGame::startGame() {
 
 
 void SnakeGame::handleInput() {
-    std::cout << "Handle Input";
+    //std::cout << "Handle Input";
     if (isPaused) return;
-
-    //if (isGameOver && sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
-    //    restartGame();  // Restart the game if 'R' is pressed
-    //    return;
-    //}
 
     // Process direction change based on keyboard input
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && direction != Direction::Down) {
@@ -134,11 +129,13 @@ void SnakeGame::update() {
 
         snake[0].setPosition(newHead);
 
+        checkBorderCollision();
         // Check food collision
         if (!checkFoodCollision()) {
             // Only check self-collision if no food was eaten
             checkSelfCollision();
         }
+        
     }
 
     handleInput();
@@ -154,8 +151,9 @@ bool SnakeGame::checkFoodCollision() {
         score += 10;
 
         // Place new food and update sprite position
-        food.setPosition((std::rand() % grid.getWidth()) * cellSize, (std::rand() % grid.getHeight()) * cellSize);
+        food.setPosition((std::rand() % grid.getWidth()) * cellSize, (std::rand() % ((720 - 120) / cellSize)) * cellSize + 120);
         foodSprite.setPosition(static_cast<float>(food.x), static_cast<float>(food.y));
+
 
         return true;  // Food was eaten
     }
@@ -169,6 +167,18 @@ void SnakeGame::checkSelfCollision() {
         }
     }
 }
+
+void SnakeGame::checkBorderCollision() {
+    Point head = snake[0].getPosition();
+
+    // Check if the snake's head is outside the window (boundary)
+    if (head.x < 0 || head.x >= 1280 || head.y < 120 || head.y >= 720) {
+        isGameOver = true;  // End the game if the snake goes outside the window
+        std::cout << "Hit the boundary!" << std::endl;
+    }
+}
+
+
 
 void SnakeGame::showGameOver() {
     gameOverText.setString("Game Over! Press R to Restart");

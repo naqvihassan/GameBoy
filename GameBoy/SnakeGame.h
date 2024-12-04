@@ -22,7 +22,7 @@ private:
     void checkSelfCollision();
     void showGameOver();  // Function to show the game over message
     void restartGame();   // Function to restart the game when player presses 'R'
-
+    void checkBorderCollision();
     sf::RenderWindow* window;
     InputSystem* inputSystem;
     static const int MAX_SNAKE_LENGTH = 500;

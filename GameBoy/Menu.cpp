@@ -28,7 +28,7 @@ void Menu::handleClick() {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         // Check button bounds for "Play Snake Game"
         if (mousePos.x >= 490 && mousePos.x <= 790 && mousePos.y >= 200 && mousePos.y <= 275) {
-            std::cout << "Starting SnakeGame!" << std::endl;
+            //std::cout << "Starting SnakeGame!" << std::endl;
             gameBoy->switchGame(new SnakeGame(window, inputSystem));  // Call switchGame
         }
         // Check button bounds for "Exit"

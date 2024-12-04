@@ -14,7 +14,7 @@ SnakeSegment::SnakeSegment(int x, int y) {
 
     // Load the shared texture only once
     if (texture.getSize().x == 0) {
-        if (!texture.loadFromFile("snake.png")) {
+        if (!texture.loadFromFile("new_snake.png")) {
             std::cerr << "Error loading snake segment texture!" << std::endl;
         }
     }

@@ -18,12 +18,12 @@ void GameBoy::start() {
         screen.clear();  // Clear the screen before rendering
 
         if (isMenuActive) {
-            std::cout << "Rendering Menu..." << std::endl;
+            //std::cout << "Rendering Menu..." << std::endl;
             menu->draw();  // Draw the menu
             menu->handleClick();  // Handle button clicks
         }
         else if (currentGame) {
-            std::cout << "Rendering SnakeGame..." << std::endl;
+            //std::cout << "Rendering SnakeGame..." << std::endl;
             currentGame->update();  // Update the game logic
             currentGame->render(screen.getWindow());  // Render the game
         }
