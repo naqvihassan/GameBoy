@@ -15,22 +15,37 @@ void GameBoy::start() {
             }
         }
 
-        screen.clear();  // Clear the screen before rendering
-
         if (isMenuActive) {
-            //std::cout << "Rendering Menu..." << std::endl;
-            menu->draw();  // Draw the menu
-            menu->handleClick();  // Handle button clicks
+            menu->draw();
+            menu->handleClick();
+
+            // Add a delay to debounce input when returning to the menu
+            sf::sleep(sf::milliseconds(100));
         }
         else if (currentGame) {
-            //std::cout << "Rendering SnakeGame..." << std::endl;
-            currentGame->update();  // Update the game logic
-            currentGame->render(screen.getWindow());  // Render the game
+            currentGame->update();
+
+            if (currentGame->shouldQuitToMenu()) {
+                isMenuActive = true;
+                delete currentGame;
+                currentGame = nullptr;
+
+                // Reset the screen and input system
+                inputSystem.isKeyPressed(sf::Keyboard::Unknown);  // Clear any previous key press (use an unused key)
+                screen.clear();
+                screen.display();
+                sf::sleep(sf::milliseconds(100));  // Debounce input
+                continue;
+            }
+
+            currentGame->render(screen.getWindow());
         }
 
-        screen.display();  // Display the rendered content
+        screen.display();
     }
 }
+
+
 
 
 

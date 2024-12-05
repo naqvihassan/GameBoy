@@ -7,5 +7,6 @@ public:
     virtual void startGame() = 0;
     virtual void update() = 0;
     virtual void render(sf::RenderWindow& window) = 0;
+    virtual bool shouldQuitToMenu() const { return false; }
     virtual ~Game() {}
 };

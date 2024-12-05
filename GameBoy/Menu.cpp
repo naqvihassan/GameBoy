@@ -2,6 +2,11 @@
 #include "GameBoy.h"
 #include <iostream>
 #include "SnakeGame.h"
+#include "Hangman-Game.h"
+#include "Leaderboard.h"
+#include "Wordle.h"
+#include "Game.h"
+
 Menu::Menu(sf::RenderWindow* window, InputSystem* inputSystem, GameBoy* gameBoy)
     : window(window), inputSystem(inputSystem), gameBoy(gameBoy) {
     if (!backgroundTexture.loadFromFile("background1.png")) {
@@ -17,8 +22,11 @@ Menu::Menu(sf::RenderWindow* window, InputSystem* inputSystem, GameBoy* gameBoy)
 void Menu::draw() {
     window->clear(sf::Color::Black); // Clear the screen before drawing
     window->draw(backgroundSprite); // Draw the background
-    drawButton("Play Snake Game", 490, 200, 300, 75); // Draw the "Play Snake Game" button
-    drawButton("Exit", 490, 300, 300, 75); // Draw the "Exit" button
+    drawButton("Play Snake Game", 490, 100, 300, 75); // Draw the "Play Snake Game" button
+    drawButton("Play Hangman Game", 490, 200, 300, 75); // Hangman game
+    drawButton("Play Wordle Game", 490, 300, 300, 75); // Hangman game
+    drawButton("LeaderBoard", 490, 400, 300, 75); // LeaderBoard
+    drawButton("Exit", 490, 500, 300, 75); // Draw the "Exit" button
 }
 
 
@@ -27,15 +35,32 @@ void Menu::handleClick() {
 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         // Check button bounds for "Play Snake Game"
-        if (mousePos.x >= 490 && mousePos.x <= 790 && mousePos.y >= 200 && mousePos.y <= 275) {
-            //std::cout << "Starting SnakeGame!" << std::endl;
+       if (mousePos.x >= 490 && mousePos.x <= 790 && mousePos.y >= 100 && mousePos.y <= 175) 
+       {
+            std::cout << "Starting SnakeGame!" << std::endl;
             gameBoy->switchGame(new SnakeGame(window, inputSystem));  // Call switchGame
-        }
+       }
+       else if (mousePos.x >= 490 && mousePos.x <= 790 && mousePos.y >= 200 && mousePos.y <= 275)
+       {
+           std::cout << "Starting HangMan Game!" << std::endl;
+           gameBoy->switchGame(new HangmanGame(window, inputSystem));  // Call switchGame
+       }
+       else if (mousePos.x >= 490 && mousePos.x <= 790 && mousePos.y >= 300 && mousePos.y <= 375)
+       {
+           std::cout << "Starting Wordle Game!" << std::endl;
+           gameBoy->switchGame(new Wordle(window, inputSystem));  // Call switchGame
+       }
+       else if (mousePos.x >= 490 && mousePos.x <= 790 && mousePos.y >= 400 && mousePos.y <= 475)
+       {
+           std::cout << "LeaderBoard!" << std::endl;
+           //gameBoy->switchGame(new Leaderboard(window, inputSystem));  // Call switchGame
+       }
         // Check button bounds for "Exit"
-        else if (mousePos.x >= 490 && mousePos.x <= 790 && mousePos.y >= 300 && mousePos.y <= 375) {
+       else if (mousePos.x >= 490 && mousePos.x <= 790 && mousePos.y >= 500 && mousePos.y <= 575)
+       {
             std::cout << "Exiting game!" << std::endl;
             window->close();  // Close the application
-        }
+       }
     }
 }
 
